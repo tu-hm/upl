@@ -1,0 +1,9 @@
+begin
+
+int x1=11;
+
+bool y2=false;
+
+if (x==y) then {
+}
+end
