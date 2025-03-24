@@ -4,6 +4,7 @@ import org.upl.Main;
 
 import java.util.*;
 
+import static java.lang.Character.isDigit;
 import static org.upl.lexer.TokenType.*;
 
 public class Lexer implements ILexer {
@@ -101,7 +102,7 @@ public class Lexer implements ILexer {
             case '\n':
                 break; // Ignore whitespace
             default:
-                if (Character.isDigit(c)) {
+                if (isDigit(c)) {
                     number();
                 } else if (Character.isLetter(c) || c == '_') {
                     identifier();
@@ -126,14 +127,24 @@ public class Lexer implements ILexer {
     }
 
     private void number() {
-        while (Character.isDigit(peek())) consume();
+        while (isDigit(peek())) consume();
         addToken(NUMBER, Integer.parseInt(source.substring(start, current)));
     }
 
+    private boolean isLetter(char c) {
+        return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z';
+    }
+
     private void identifier() {
-        while (Character.isLetterOrDigit(peek()) || peek() == '_') consume();
+        while (isLetter(peek())) consume();
+        while (isDigit(peek())) consume();
         String text = source.substring(start, current);
-        TokenType type = KEYWORDS.getOrDefault(text, ID);
-        addToken(type, type == TRUE || type == FALSE ? Boolean.parseBoolean(text) : null);
+        TokenType type = KEYWORDS.get(text);
+        if (type == null) type = ID;
+        if (type == TRUE || type == FALSE) {
+            addToken(type, Boolean.parseBoolean(source.substring(start, current)));
+            return;
+        }
+        addToken(type);
     }
 }
