@@ -99,13 +99,13 @@ class JFlexScanner {
   private static final String ZZ_ACTION_PACKED_0 =
     "\1\0\1\1\2\2\1\3\1\4\1\5\1\6\1\1"+
     "\1\7\1\10\1\11\1\12\11\13\1\14\1\15\1\0"+
-    "\1\16\1\17\1\20\3\13\1\21\3\13\1\22\5\13"+
-    "\1\0\3\13\1\23\1\13\1\24\4\13\1\16\1\13"+
-    "\1\25\2\13\1\26\1\27\1\13\1\30\1\31\1\32"+
-    "\1\33";
+    "\1\16\1\17\1\20\3\13\1\21\4\13\1\22\5\13"+
+    "\1\0\3\13\1\23\1\13\1\24\1\25\4\13\1\16"+
+    "\1\13\1\26\2\13\1\27\1\30\1\13\1\31\1\32"+
+    "\1\33\1\34";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[64];
+    int [] result = new int[66];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -134,13 +134,14 @@ class JFlexScanner {
     "\0\146\0\210\0\42\0\252\0\314\0\356\0\u0110\0\u0132"+
     "\0\u0154\0\u0176\0\u0198\0\u01ba\0\u01dc\0\u01fe\0\42\0\42"+
     "\0\u0220\0\u0242\0\42\0\42\0\u0264\0\u0286\0\u02a8\0\356"+
-    "\0\u02ca\0\u02ec\0\u030e\0\356\0\u0330\0\u0352\0\u0374\0\u0396"+
-    "\0\u03b8\0\u03da\0\u03fc\0\u041e\0\u0440\0\356\0\u0462\0\356"+
-    "\0\u0484\0\u04a6\0\u04c8\0\u04ea\0\42\0\u050c\0\356\0\u052e"+
-    "\0\u0550\0\356\0\356\0\u0572\0\356\0\356\0\356\0\356";
+    "\0\u02ca\0\u02ec\0\u030e\0\u0330\0\356\0\u0352\0\u0374\0\u0396"+
+    "\0\u03b8\0\u03da\0\u03fc\0\u041e\0\u0440\0\u0462\0\356\0\u0484"+
+    "\0\356\0\356\0\u04a6\0\u04c8\0\u04ea\0\u050c\0\42\0\u052e"+
+    "\0\356\0\u0550\0\u0572\0\356\0\356\0\u0594\0\356\0\356"+
+    "\0\356\0\356";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[64];
+    int [] result = new int[66];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -171,33 +172,34 @@ class JFlexScanner {
     "\37\0\1\35\3\0\22\16\14\0\1\35\3\0\4\16"+
     "\1\36\6\16\1\37\6\16\14\0\1\35\3\0\13\16"+
     "\1\40\6\16\14\0\1\35\3\0\11\16\1\41\1\42"+
-    "\7\16\14\0\1\35\3\0\1\16\1\43\20\16\14\0"+
-    "\1\35\3\0\5\16\1\44\4\16\1\45\7\16\14\0"+
-    "\1\35\3\0\15\16\1\46\4\16\14\0\1\35\3\0"+
-    "\7\16\1\47\5\16\1\50\4\16\14\0\1\35\3\0"+
-    "\7\16\1\51\12\16\2\0\7\31\1\52\32\31\2\32"+
-    "\1\0\1\32\1\0\35\32\12\0\1\35\41\0\1\35"+
-    "\3\0\6\16\1\53\13\16\14\0\1\35\3\0\13\16"+
-    "\1\54\6\16\14\0\1\35\3\0\16\16\1\55\3\16"+
-    "\14\0\1\35\3\0\3\16\1\56\16\16\14\0\1\35"+
-    "\3\0\11\16\1\57\10\16\14\0\1\35\3\0\17\16"+
-    "\1\60\2\16\14\0\1\35\3\0\10\16\1\61\11\16"+
-    "\14\0\1\35\3\0\4\16\1\62\15\16\14\0\1\35"+
-    "\3\0\20\16\1\63\1\16\14\0\1\35\3\0\10\16"+
-    "\1\64\11\16\2\0\7\31\1\52\1\31\1\65\30\31"+
-    "\12\0\1\35\3\0\10\16\1\66\11\16\14\0\1\35"+
-    "\3\0\11\16\1\60\10\16\14\0\1\35\3\0\4\16"+
-    "\1\67\15\16\14\0\1\35\3\0\16\16\1\70\3\16"+
-    "\14\0\1\35\3\0\12\16\1\71\7\16\14\0\1\35"+
-    "\3\0\12\16\1\72\7\16\14\0\1\35\3\0\4\16"+
-    "\1\73\15\16\14\0\1\35\3\0\11\16\1\74\10\16"+
-    "\14\0\1\35\3\0\12\16\1\75\7\16\14\0\1\35"+
-    "\3\0\4\16\1\76\15\16\14\0\1\35\3\0\17\16"+
-    "\1\77\2\16\14\0\1\35\3\0\4\16\1\100\15\16"+
+    "\7\16\14\0\1\35\3\0\1\16\1\43\11\16\1\44"+
+    "\6\16\14\0\1\35\3\0\5\16\1\45\4\16\1\46"+
+    "\7\16\14\0\1\35\3\0\15\16\1\47\4\16\14\0"+
+    "\1\35\3\0\7\16\1\50\5\16\1\51\4\16\14\0"+
+    "\1\35\3\0\7\16\1\52\12\16\2\0\7\31\1\53"+
+    "\32\31\2\32\1\0\1\32\1\0\35\32\12\0\1\35"+
+    "\41\0\1\35\3\0\6\16\1\54\13\16\14\0\1\35"+
+    "\3\0\13\16\1\55\6\16\14\0\1\35\3\0\16\16"+
+    "\1\56\3\16\14\0\1\35\3\0\3\16\1\57\16\16"+
+    "\14\0\1\35\3\0\11\16\1\60\10\16\14\0\1\35"+
+    "\3\0\15\16\1\61\4\16\14\0\1\35\3\0\17\16"+
+    "\1\62\2\16\14\0\1\35\3\0\10\16\1\63\11\16"+
+    "\14\0\1\35\3\0\4\16\1\64\15\16\14\0\1\35"+
+    "\3\0\20\16\1\65\1\16\14\0\1\35\3\0\10\16"+
+    "\1\66\11\16\2\0\7\31\1\53\1\31\1\67\30\31"+
+    "\12\0\1\35\3\0\10\16\1\70\11\16\14\0\1\35"+
+    "\3\0\11\16\1\62\10\16\14\0\1\35\3\0\4\16"+
+    "\1\71\15\16\14\0\1\35\3\0\16\16\1\72\3\16"+
+    "\14\0\1\35\3\0\12\16\1\73\7\16\14\0\1\35"+
+    "\3\0\12\16\1\74\7\16\14\0\1\35\3\0\4\16"+
+    "\1\75\15\16\14\0\1\35\3\0\11\16\1\76\10\16"+
+    "\14\0\1\35\3\0\12\16\1\77\7\16\14\0\1\35"+
+    "\3\0\4\16\1\100\15\16\14\0\1\35\3\0\17\16"+
+    "\1\101\2\16\14\0\1\35\3\0\4\16\1\102\15\16"+
     "\2\0";
 
   private static int [] zzUnpacktrans() {
-    int [] result = new int[1428];
+    int [] result = new int[1462];
     int offset = 0;
     offset = zzUnpacktrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -241,10 +243,10 @@ class JFlexScanner {
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
     "\1\0\2\11\1\1\4\11\2\1\1\11\13\1\2\11"+
-    "\1\0\1\1\2\11\15\1\1\0\12\1\1\11\13\1";
+    "\1\0\1\1\2\11\16\1\1\0\13\1\1\11\13\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[64];
+    int [] result = new int[66];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -740,139 +742,144 @@ class JFlexScanner {
             { Main.error(yyline + 1, yycolumn,"Unexpected " + yytext()); return null;
             }
           // fall through
-          case 28: break;
+          case 29: break;
           case 2:
             { /* ignore white space. */ return null;
             }
           // fall through
-          case 29: break;
+          case 30: break;
           case 3:
             { return new Token(LEFT_PAREN, yytext(), null, yyline + 1, yycolumn);
             }
           // fall through
-          case 30: break;
+          case 31: break;
           case 4:
             { return new Token(RIGHT_PAREN, yytext(), null, yyline + 1, yycolumn);
             }
           // fall through
-          case 31: break;
+          case 32: break;
           case 5:
             { return new Token(MULTIPLY, yytext(), null, yyline + 1, yycolumn);
             }
           // fall through
-          case 32: break;
+          case 33: break;
           case 6:
             { return new Token(PLUS, yytext(), null, yyline + 1, yycolumn);
             }
           // fall through
-          case 33: break;
+          case 34: break;
           case 7:
             { return new Token(NUMBER, yytext(), Integer.parseInt(yytext()), yyline + 1, yycolumn);
             }
           // fall through
-          case 34: break;
+          case 35: break;
           case 8:
             { return new Token(SEMICOLON, yytext(), null, yyline + 1, yycolumn);
             }
           // fall through
-          case 35: break;
+          case 36: break;
           case 9:
             { return new Token(EQUAL, yytext(), null, yyline + 1, yycolumn);
             }
           // fall through
-          case 36: break;
+          case 37: break;
           case 10:
             { return new Token(GREATER, yytext(), null, yyline + 1, yycolumn);
             }
           // fall through
-          case 37: break;
+          case 38: break;
           case 11:
             { return new Token(ID, yytext(), null, yyline + 1, yycolumn);
             }
           // fall through
-          case 38: break;
+          case 39: break;
           case 12:
             { return new Token(LEFT_BRACE, yytext(), null, yyline + 1, yycolumn);
             }
           // fall through
-          case 39: break;
+          case 40: break;
           case 13:
             { return new Token(RIGHT_BRACE, yytext(), null, yyline + 1, yycolumn);
             }
           // fall through
-          case 40: break;
+          case 41: break;
           case 14:
             { /* System.out.printf("Comment: %s\n", yytext()); */ return null;
             }
           // fall through
-          case 41: break;
+          case 42: break;
           case 15:
             { return new Token(EQUAL_EQUAL, yytext(), null, yyline + 1, yycolumn);
             }
           // fall through
-          case 42: break;
+          case 43: break;
           case 16:
             { return new Token(GREATER_EQUAL, yytext(), null, yyline + 1, yycolumn);
             }
           // fall through
-          case 43: break;
+          case 44: break;
           case 17:
             { return new Token(DO, yytext(), null, yyline + 1, yycolumn);
             }
           // fall through
-          case 44: break;
+          case 45: break;
           case 18:
             { return new Token(IF, yytext(), null, yyline + 1, yycolumn);
             }
           // fall through
-          case 45: break;
+          case 46: break;
           case 19:
             { return new Token(END, yytext(), null, yyline + 1, yycolumn);
             }
           // fall through
-          case 46: break;
+          case 47: break;
           case 20:
+            { return new Token(FOR, yytext(), null, yyline + 1, yycolumn);
+            }
+          // fall through
+          case 48: break;
+          case 21:
             { if (yytext().equals("int")) return new Token(INT, yytext(), null, yyline + 1, yycolumn);
 	else if (yytext().equals("bool")) return new Token(BOOL, yytext(), null, yyline + 1, yycolumn);
 	Main.error(yyline + 1, yycolumn, "Unexpected " + yytext()); System.exit(1);
             }
           // fall through
-          case 47: break;
-          case 21:
+          case 49: break;
+          case 22:
             { return new Token(ELSE, yytext(), null, yyline + 1, yycolumn);
             }
           // fall through
-          case 48: break;
-          case 22:
+          case 50: break;
+          case 23:
             { return new Token(THEN, yytext(), null, yyline + 1, yycolumn);
             }
           // fall through
-          case 49: break;
-          case 23:
+          case 51: break;
+          case 24:
             { return new Token(TRUE, yytext(), true, yyline + 1, yycolumn);
             }
           // fall through
-          case 50: break;
-          case 24:
+          case 52: break;
+          case 25:
             { return new Token(BEGIN, yytext(), null, yyline + 1, yycolumn);
             }
           // fall through
-          case 51: break;
-          case 25:
+          case 53: break;
+          case 26:
             { return new Token(FALSE, yytext(), false, yyline + 1, yycolumn);
             }
           // fall through
-          case 52: break;
-          case 26:
+          case 54: break;
+          case 27:
             { return new Token(PRINT, yytext(), null, yyline + 1, yycolumn);
             }
           // fall through
-          case 53: break;
-          case 27:
+          case 55: break;
+          case 28:
             { return new Token(WHILE, yytext(), null, yyline + 1, yycolumn);
             }
           // fall through
-          case 54: break;
+          case 56: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

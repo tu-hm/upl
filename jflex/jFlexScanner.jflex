@@ -42,6 +42,7 @@ Comment = {TraditionalComment} | {EndOfLineComment}
 "while" { return new Token(WHILE, yytext(), null, yyline + 1, yycolumn); }
 "true" { return new Token(TRUE, yytext(), true, yyline + 1, yycolumn); }
 "false" { return new Token(FALSE, yytext(), false, yyline + 1, yycolumn); }
+"for" { return new Token(FOR, yytext(), null, yyline + 1, yycolumn); }
 
 ">" { return new Token(GREATER, yytext(), null, yyline + 1, yycolumn);  }
 ">=" { return new Token(GREATER_EQUAL, yytext(), null, yyline + 1, yycolumn);  }
