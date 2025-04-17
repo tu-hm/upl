@@ -5,6 +5,22 @@ int x1=11;
 
 bool y2=false;
 
+for (int i = 2; i >= 2; ++i) {
+    print(i+1);
+}
+
+/**
+for hehe
+*/
+
+// bool a = 1
+
+do {
+    potato
+} while
+
+%hehe
+
 if (x==y) then {
 }
 end

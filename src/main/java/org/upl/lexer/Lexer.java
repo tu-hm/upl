@@ -73,16 +73,6 @@ public class Lexer implements ILexer {
         addToken(type, null);
     }
 
-    @Override
-    public List<Token> scanTokens() {
-        while (!isAtEnd()) {
-            start = current;
-            scanToken();
-        }
-        tokens.add(new Token(EOF, "EOF", null, line, column()));
-        return tokens;
-    }
-
     private void scanToken() {
         char c = consume();
         switch (c) {
@@ -146,5 +136,15 @@ public class Lexer implements ILexer {
             return;
         }
         addToken(type);
+    }
+
+    @Override
+    public List<Token> scanTokens() {
+        while (!isAtEnd()) {
+            start = current;
+            scanToken();
+        }
+        tokens.add(new Token(EOF, "EOF", null, line, column()));
+        return tokens;
     }
 }
