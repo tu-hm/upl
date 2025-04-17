@@ -1,0 +1,86 @@
+###
+TERMINAL:
+EOF,
+
+LEFT_PAREN, RIGHT_PAREN,
+LEFT_BRACE, RIGHT_BRACE,
+SEMICOLON,
+
+BEGIN, THEN, END,
+DO, WHILE, FOR, PRINT, IF, ELSE,
+
+INT, BOOL, ID,
+
+PLUS, MULTIPLY,
+EQUAL,
+EQUAL_EQUAL,
+GREATER, GREATER_EQUAL,
+NUMBER, TRUE, FALSE,
+
+EPSILON
+
+###
+NON-TERMINAL:
+Program,
+
+BracketStatementLists, StatementLists, Statement, AssignmentStatement, IfStatement, DoWhileStatement,
+ForStatement, ElseStatement, PrintStatement, DeclarationStatement, ConditionalStatement,
+
+ComparisonOperator,
+
+Expression, Term, Factor, Literal,
+
+Type
+
+###
+PRODUCTION_RULE:
+Program -> BEGIN StatementLists END;
+
+BracketStatementLists -> LEFT_BRACE StatementLists RIGHT_BRACE;
+
+StatementLists -> Statement StatementLists
+    | EPSILON;
+
+Statement -> AssignmentStatement
+    | IfStatement
+    | DoWhileStatement
+    | ForStatement
+    | PrintStatement
+    | DeclarationStatement;
+
+AssignmentStatement -> ID EQUAL Expression SEMICOLON;
+
+IfStatement -> IF LEFT_PAREN ConditionalStatement RIGHT_PAREN BracketStatementLists ElseStatement;
+
+ElseStatement -> ELSE BracketStatementLists;
+    | EPSILON;
+
+PrintStatement -> PRINT LEFT_PAREN Expression RIGHT_PAREN SEMICOLON;
+
+DeclarationStatement -> Type ID SEMICOLON;
+
+DoWhileStatement -> DO BracketStatementLists WHILE LEFT_PAREN ConditionalStatement RIGHT_PAREN;
+
+ForStatement -> FOR LEFT_PAREN DeclarationStatement SEMICOLON
+ConditionalStatement SEMICOLON AssignmentStatement RIGHT_PAREN BracketStatementLists;
+
+Expression -> Expression PLUS Term;
+
+Term -> Term MULTIPLY Factor;
+
+Factor -> ID
+    | Literal
+    | LEFT_PAREN Expression RIGHT_PAREN;
+
+ConditionalStatement -> Expression ComparisonOperator Expression;
+
+ComparisonOperator -> EQUAL_EQUAL
+    | GREATER
+    | GREATER_EQUAL;
+
+Type -> INT
+    | BOOL;
+
+Literal -> NUMBER
+    | TRUE
+    | FALSE;

@@ -1,0 +1,15 @@
+begin
+
+int x1=11;
+
+bool y2=false;
+
+for (int i = 3; i <= 5; i = i + 1) {
+    // hmm
+    int c3 = true;
+}
+hihi 2321 huhu;
+do {
+    print(c4 * c5 + c3);
+} while (true);
+end

@@ -16,7 +16,5 @@ public enum TokenType {
     EQUAL,
     EQUAL_EQUAL,
     GREATER, GREATER_EQUAL,
-    LETTER,
-    DIGIT,
     NUMBER, TRUE, FALSE,
 }

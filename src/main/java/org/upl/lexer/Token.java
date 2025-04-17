@@ -23,6 +23,11 @@ public class Token {
         this.column = column;
     }
 
+    public Token(TokenType type, String lexeme) {
+        this.type = type;
+        this.lexeme = lexeme;
+    }
+
     public TokenType getType() {
         return type;
     }
