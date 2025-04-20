@@ -5,6 +5,7 @@ import org.upl.Utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class Production implements Comparable<Production> {
     /**
@@ -76,25 +77,39 @@ public class Production implements Comparable<Production> {
         return true;
     }
 
-    /**
-     *  Remove ε, if necessary
-     */
-    public void trim() {
-        right.removeIf((symbol -> symbol.equals(Grammar.epsilon)));
-        if (right.isEmpty()) {
-            right.add(Grammar.epsilon);
+    public boolean nullable(Set<NonTerminal> nullNonTerminal) {
+        for (Symbol symbol : right) {
+            if (symbol instanceof NonTerminal && nullNonTerminal.contains(symbol)) {
+                continue;
+            }
+
+            return false;
         }
+
+        return true;
     }
 
-    public boolean isEpsilonProduction() {
-        return right.size() == 1 && right.get(0).equals(Grammar.epsilon);
-    }
-
-    public NonTerminal reduce(Symbol[] symbols) {
-        Object[] symbolValues = new Object[symbols.length];
-        for (int i = 0; i < symbols.length; ++ i) {
-            symbolValues[i] = symbols[i].object;
+    public static List<List<Production>> groupProductListBySymbol(
+                List<NonTerminal> nonTerminalList,
+                List<Production> productionList,
+                boolean left
+            ) {
+        List<List<Production>> result = new ArrayList<>();
+        for (int i = 0; i < nonTerminalList.size(); i++) {
+            result.add(new ArrayList<>());
         }
-        return new NonTerminal(left.toString(), nonTerminalValueReducer.reduce(symbolValues));
+
+        List<Production> remain = new ArrayList<>();
+        for (Production production : productionList) {
+            Symbol groupBy = left ? production.left : production.right.getFirst();
+            if (groupBy instanceof NonTerminal && nonTerminalList.contains(groupBy)) {
+                result.get(nonTerminalList.indexOf(groupBy)).add(production);
+            } else {
+                remain.add(production);
+            }
+        }
+        result.add(remain);
+
+        return result;
     }
 }

@@ -64,9 +64,11 @@ DoWhileStatement -> DO BracketStatementLists WHILE LEFT_PAREN ConditionalStateme
 ForStatement -> FOR LEFT_PAREN DeclarationStatement SEMICOLON
 ConditionalStatement SEMICOLON AssignmentStatement RIGHT_PAREN BracketStatementLists;
 
-Expression -> Expression PLUS Term;
+Expression -> Expression PLUS Term
+    | Term;
 
-Term -> Term MULTIPLY Factor;
+Term -> Term MULTIPLY Factor
+    | Factor;
 
 Factor -> ID
     | Literal
