@@ -1,26 +1,12 @@
 begin
-// hihii
-/* ahihi */
 int x1=11;
-
-bool y2=false;
-
-for (int i = 2; i >= 2; ++i) {
-    print(i+1);
+if (x == 3) { print(5);}
+else { uwu }
+a=x+y;
+for(int i = 3; i < 5; i = i + 1;) {
+    do {
+        c = 3 + 5 * 7;
+    } while (1 + 1 == 2)
 }
-
-/**
-for hehe
-*/
-
-// bool a = 1
-
-do {
-    potato
-} while
-
-%hehe
-
-if (x==y) then {
-}
+ahihi
 end

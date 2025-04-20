@@ -8,6 +8,7 @@ import java.io.*;
 import java.security.InvalidParameterException;
 import java.util.*;
 
+import static java.lang.Math.min;
 import static org.upl.parser.grammar.Production.groupProductListBySymbol;
 
 public class Grammar {
@@ -15,15 +16,14 @@ public class Grammar {
     public static final Terminal eof = new Terminal("$");
     public static final String dot = ".";
 
-    public final NonTerminal start;
+    public NonTerminal start;
     public final List<NonTerminal> nonTerminalList;
     public final List<Terminal> terminalList;
     public final List<Production> productionList;
     public final Map<NonTerminal, Set<Terminal>> first = new HashMap<>();
     public final Map<NonTerminal, Set<Terminal>> follow = new HashMap<>();
 
-    public Grammar(Reader reader, NonTerminal start) {
-        this.start = start;
+    public Grammar(Reader reader) {
         this.nonTerminalList = new ArrayList<>();
         this.terminalList = new ArrayList<>();
         this.productionList = new ArrayList<>();
@@ -38,6 +38,8 @@ public class Grammar {
                 processNonTerminal(section);
             } else if (section.startsWith("PRODUCTION_RULE:")) {
                 processProductionRule(section);
+            } else if (section.startsWith("START:")) {
+                start = new NonTerminal(section.split(":")[1].trim());
             }
         }
     }
@@ -217,7 +219,7 @@ public class Grammar {
         productionList.clear();
         List<NonTerminal> processedSymbols = new ArrayList<>();
         List<List<Production>> accepted = new ArrayList<>();
-        for (int i = 0; i < productionGroup.size(); i++) {
+        for (int i = 0; i + 1 < productionGroup.size(); i++) {
             processedSymbols.add(nonTerminalList.get(i));
             List<List<Production>> groupOfI = groupProductListBySymbol(
                     processedSymbols,
@@ -243,6 +245,7 @@ public class Grammar {
             if (!groupOfI.get(i).isEmpty()) {
                 NonTerminal newSymbol = new NonTerminal(nonTerminalList.get(i).value + "'");
                 for (Production recursion : groupOfI.get(i)) {
+                    recursion.right.removeFirst();
                     recursion.right.add(newSymbol);
                     productionList.add(
                             new Production(
@@ -268,6 +271,51 @@ public class Grammar {
         }
     }
 
+    public void removeLeftFactoring() {
+        int count = 0;
+        while (true) {
+            int mx = 0, mi = 0;
+            for (int i = 0; i < productionList.size(); i++) {
+                for (int j = i + 1; j < productionList.size(); j++) {
+                    int cur = Production.lcp(productionList.get(i), productionList.get(j));
+
+                    if (mx < cur) {
+                        mx = cur;
+                        mi = i;
+                    }
+                }
+            }
+            if (mx == 0) {
+                break;
+            }
+
+            List<Production> remain = new ArrayList<>();
+            Production best = productionList.get(mi);
+            NonTerminal newSymbol = new NonTerminal(best.left.value + count);
+            for (Production production : productionList) {
+                if (Production.lcp(best, production) >= mx) {
+                    List<Symbol> temp = new ArrayList<>(
+                            production.right.subList(mx, production.right.size()));
+                    if (temp.isEmpty()) {
+                        temp.add(Grammar.epsilon);
+                    }
+                    remain.add(new Production(newSymbol, temp));
+                } else {
+                    remain.add(production);
+                }
+            }
+
+
+            List<Symbol> temp = new ArrayList<>(best.right.subList(0, mx));
+            temp.add(newSymbol);
+            remain.add(new Production(best.left, temp));
+            nonTerminalList.add(newSymbol);
+            productionList.clear();
+            productionList.addAll(remain);
+            count++;
+        }
+    }
+
     public void initializeFirstAndFollow() {
         for (NonTerminal symbol : nonTerminalList) {
             first.put(symbol, new HashSet<>());
@@ -275,8 +323,16 @@ public class Grammar {
         }
     }
 
-    public void calculateFirst() {
+    public boolean nullable(Symbol symbol) {
+        if (symbol instanceof Terminal) {
+            return symbol.equals(epsilon);
+        } else if (symbol instanceof NonTerminal) {
+            return first.get(symbol).contains(epsilon);
+        }
+        return false;
+    }
 
+    public void calculateFirst() {
         Graph graph = new Graph(nonTerminalList.size());
         for (Production production : productionList) {
             Symbol rightFirst = production.right.getFirst();
@@ -303,13 +359,10 @@ public class Grammar {
                 for (Symbol symbol : production.right) {
                     if (symbol instanceof Terminal) {
                         first.get(current).add((Terminal) symbol);
-                        break;
+                    } else if (symbol instanceof NonTerminal) {
+                        first.get(current).addAll(first.get(symbol));
                     }
-
-                    assert (symbol instanceof NonTerminal);
-
-                    first.get(current).addAll(first.get(symbol));
-                    if (!first.get(symbol).contains(epsilon)) {
+                    if (!nullable(symbol)) {
                         break;
                     }
                 }
@@ -345,14 +398,9 @@ public class Grammar {
                             nonTerminalList.indexOf(production.left)
                     );
                 }
-
-                if (symbol.equals(epsilon)) {
-                    continue;
+                if (!nullable(symbol)) {
+                    break;
                 }
-                if ((symbol instanceof NonTerminal) && (first.get(symbol).contains(epsilon))) {
-                    continue;
-                }
-                break;
             }
             processFollow(production);
         }
@@ -410,9 +458,10 @@ public class Grammar {
         String filePath = args[0];
         Reader reader = new InputStreamReader(new FileInputStream(filePath));
 
-        Grammar grammarParser = new Grammar(reader, new NonTerminal("Program"));
+        Grammar grammarParser = new Grammar(reader);
         grammarParser.removeEpsilonRule();
         grammarParser.eliminateLeftRecursion();
+        grammarParser.removeLeftFactoring();
         grammarParser.initializeFirstAndFollow();
         grammarParser.calculateFirst();
         grammarParser.calculateFollow();

@@ -2,13 +2,17 @@ package org.upl.parser.grammar;
 
 public abstract class Symbol implements Comparable<Symbol> {
     public final String value;
-    public final Object object;
+    public Object object;
     public Symbol(String value) {
         this.value = value; this.object = null;
     }
 
     public Symbol(String value, Object object) {
         this.value = value;
+        this.object = object;
+    }
+
+    public void setObject(Object object) {
         this.object = object;
     }
 

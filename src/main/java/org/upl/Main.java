@@ -1,9 +1,13 @@
 package org.upl;
 
+import org.upl.graph.ASTGraph;
 import org.upl.lexer.ILexer;
 import org.upl.lexer.JFlexLexer;
 import org.upl.lexer.Lexer;
 import org.upl.lexer.Token;
+import org.upl.object.statement.Statement;
+import org.upl.object.statement.StatementList;
+import org.upl.parser.manual.TopDownParser;
 
 import java.io.*;
 import java.nio.file.Paths;
@@ -79,5 +83,10 @@ public class Main {
         for (Token token : tokens) {
             System.out.println("Token: " + token.getType() + " at line " + token.getLine() + " column " + token.getColumn());
         }
+
+        TopDownParser topDownParser = new TopDownParser(
+                new InputStreamReader(new FileInputStream("CFG.txt")));
+
+        ASTGraph parsed = topDownParser.parse(tokens);
     }
 }

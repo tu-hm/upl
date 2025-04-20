@@ -24,7 +24,7 @@ NON-TERMINAL:
 Program,
 
 BracketStatementLists, StatementLists, Statement, AssignmentStatement, IfStatement, DoWhileStatement,
-ForStatement, ElseStatement, PrintStatement, DeclarationStatement, ConditionalStatement,
+ForStatement, ElseStatement, PrintStatement, DeclarationStatement, ConditionalStatement, InitDeclarator,
 
 ComparisonOperator,
 
@@ -52,16 +52,19 @@ AssignmentStatement -> ID EQUAL Expression SEMICOLON;
 
 IfStatement -> IF LEFT_PAREN ConditionalStatement RIGHT_PAREN BracketStatementLists ElseStatement;
 
-ElseStatement -> ELSE BracketStatementLists;
+ElseStatement -> ELSE BracketStatementLists
     | EPSILON;
 
 PrintStatement -> PRINT LEFT_PAREN Expression RIGHT_PAREN SEMICOLON;
 
-DeclarationStatement -> Type ID SEMICOLON;
+DeclarationStatement -> Type ID InitDeclarator;
+
+InitDeclarator -> SEMICOLON
+    | EQUAL Expression SEMICOLON;
 
 DoWhileStatement -> DO BracketStatementLists WHILE LEFT_PAREN ConditionalStatement RIGHT_PAREN;
 
-ForStatement -> FOR LEFT_PAREN DeclarationStatement SEMICOLON
+ForStatement -> FOR LEFT_PAREN DeclarationStatement
 ConditionalStatement SEMICOLON AssignmentStatement RIGHT_PAREN BracketStatementLists;
 
 Expression -> Expression PLUS Term
@@ -86,3 +89,7 @@ Type -> INT
 Literal -> NUMBER
     | TRUE
     | FALSE;
+
+###
+START:
+Program

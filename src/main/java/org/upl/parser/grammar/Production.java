@@ -82,6 +82,9 @@ public class Production implements Comparable<Production> {
             if (symbol instanceof NonTerminal && nullNonTerminal.contains(symbol)) {
                 continue;
             }
+            if (symbol.equals(Grammar.epsilon)) {
+                continue;
+            }
 
             return false;
         }
@@ -111,5 +114,20 @@ public class Production implements Comparable<Production> {
         result.add(remain);
 
         return result;
+    }
+
+    public static int lcp(Production l, Production r) {
+        if (!l.left.equals(r.left)) {
+            return 0;
+        }
+
+        int lcp = 0;
+        for (int i = 0; i < Math.min(l.right.size(), r.right.size()); i++) {
+            if (l.right.get(i).equals(r.right.get(i)) &&
+                    (!l.right.get(i).equals(Grammar.epsilon))) {
+                lcp++;
+            }
+        }
+        return lcp;
     }
 }
