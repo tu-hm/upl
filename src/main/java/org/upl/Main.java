@@ -83,10 +83,12 @@ public class Main {
             System.out.println("Token: " + token.getType() + " at line " + token.getLine() + " column " + token.getColumn());
         }
 
-        Parser parser = new BottomUp(
+        Parser parser = new TopDown(
                 new InputStreamReader(new FileInputStream("CFG.txt")));
 
         ASTGraph parsed = parser.parse(tokens);
-        parsed.drawSyntaxTree();
+        if (!hasCompileError) {
+            parsed.drawSyntaxTree();
+        }
     }
 }
