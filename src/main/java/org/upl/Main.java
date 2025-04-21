@@ -43,11 +43,15 @@ public class Main {
 //        String executionPath = Paths.get("").toAbsolutePath().toString();
 //        System.out.println("Program executed from: " + executionPath);
         boolean useJflex = false;
+        boolean useTopDownParser = false;
         for (String arg : args) {
             if (arg.startsWith("--")) {
                 String part = arg.substring(2);
                 if (part.equals("jflex")) {
                     useJflex = true;
+                }
+                if (part.equals("top-down")) {
+                    useTopDownParser = true;
                 }
                 continue;
             } else {
@@ -83,8 +87,15 @@ public class Main {
             System.out.println("Token: " + token.getType() + " at line " + token.getLine() + " column " + token.getColumn());
         }
 
-        Parser parser = new TopDown(
-                new InputStreamReader(new FileInputStream("CFG.txt")));
+        Parser parser;
+
+        if (useTopDownParser) {
+            parser = new TopDown(
+                    new InputStreamReader(new FileInputStream("CFG.txt")));
+        } else {
+            parser = new BottomUp(
+                    new InputStreamReader(new FileInputStream("CFG.txt")));
+        }
 
         ASTGraph parsed = parser.parse(tokens);
         if (!hasCompileError) {

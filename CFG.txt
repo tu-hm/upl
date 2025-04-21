@@ -41,14 +41,14 @@ BracketStatementLists -> LEFT_BRACE StatementLists RIGHT_BRACE;
 StatementLists -> Statement StatementLists
     | EPSILON;
 
-Statement -> AssignmentStatement
+Statement -> AssignmentStatement SEMICOLON
     | IfStatement
     | DoWhileStatement
     | ForStatement
     | PrintStatement
     | DeclarationStatement;
 
-AssignmentStatement -> ID EQUAL Expression SEMICOLON;
+AssignmentStatement -> ID EQUAL Expression;
 
 IfStatement -> IF LEFT_PAREN ConditionalStatement RIGHT_PAREN BracketStatementLists ElseStatement;
 
