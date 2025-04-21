@@ -12,6 +12,19 @@ import static java.lang.Math.min;
 import static org.upl.parser.grammar.Production.groupProductListBySymbol;
 
 public class Grammar {
+    public static List<Production> allCurrentNonTerminalAiProduction(
+            List<Production> productionList,
+            NonTerminal nonTerminal) {
+        List<Production> res = new ArrayList<>();
+        for (Production production : productionList) {
+            if (production.left.equals(nonTerminal)) {
+                List<Symbol> right = new ArrayList<>(production.right);
+                res.add(new Production(production.left, right));
+            }
+        }
+        return res;
+    }
+
     public static final Terminal epsilon = new Terminal("ε");
     public static final Terminal eof = new Terminal("$");
     public static final String dot = ".";
@@ -42,6 +55,39 @@ public class Grammar {
                 start = new NonTerminal(section.split(":")[1].trim());
             }
         }
+    }
+
+    public Grammar(NonTerminal start, List<NonTerminal> nonTerminalList,
+                   List<Terminal> terminalList, List<Production> productionList) {
+        this.start = start;
+        this.nonTerminalList = nonTerminalList;
+        this.terminalList = terminalList;
+        this.productionList = productionList;
+    }
+
+    public void init() {
+        removeEpsilonRule();
+        eliminateLeftRecursion();
+        removeLeftFactoring();
+        initializeFirstAndFollow();
+        calculateFirst();
+        calculateFollow();
+    }
+
+    public Grammar getAugmentedGrammar() {
+        NonTerminal newStart = new NonTerminal(String.format("%s-", start));
+
+        List<NonTerminal> newNonTerminalList = new ArrayList<>();
+        newNonTerminalList.add(newStart);
+        newNonTerminalList.addAll(nonTerminalList);
+
+        List<Terminal> newTerminalList = new ArrayList<>(terminalList);
+
+        List<Production> newProductionList = new ArrayList<>();
+        newProductionList.add(new Production(newStart, start));
+        newProductionList.addAll(productionList);
+
+        return new Grammar(newStart, newNonTerminalList, newTerminalList, newProductionList);
     }
 
     private String readInput(Reader reader) {
@@ -427,7 +473,9 @@ public class Grammar {
         for (NonTerminal nonTerminal : nonTerminalList) res.append(String.format(" %s", nonTerminal));
         res.append("\n");
         res.append("Productions Rules:\n");
-        for (Production production : productionList) res.append(String.format("%s\n", production));
+        for (int i = 0; i < productionList.size(); i++) {
+            res.append(String.format("%d, %s\n", i + 1, productionList.get(i)));
+        }
         res.append("FIRST:\n");
         first.forEach(((symbol, terminals) -> {
             res.append(String.format("first(%s): ", symbol));

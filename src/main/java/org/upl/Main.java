@@ -5,12 +5,11 @@ import org.upl.lexer.ILexer;
 import org.upl.lexer.JFlexLexer;
 import org.upl.lexer.Lexer;
 import org.upl.lexer.Token;
-import org.upl.object.statement.Statement;
-import org.upl.object.statement.StatementList;
-import org.upl.parser.manual.TopDownParser;
+import org.upl.parser.Parser;
+import org.upl.parser.manual.BottomUp;
+import org.upl.parser.manual.TopDown;
 
 import java.io.*;
-import java.nio.file.Paths;
 import java.util.List;
 
 public class Main {
@@ -84,9 +83,10 @@ public class Main {
             System.out.println("Token: " + token.getType() + " at line " + token.getLine() + " column " + token.getColumn());
         }
 
-        TopDownParser topDownParser = new TopDownParser(
+        Parser parser = new BottomUp(
                 new InputStreamReader(new FileInputStream("CFG.txt")));
 
-        ASTGraph parsed = topDownParser.parse(tokens);
+        ASTGraph parsed = parser.parse(tokens);
+        parsed.drawSyntaxTree();
     }
 }

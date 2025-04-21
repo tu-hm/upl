@@ -4,6 +4,7 @@ import org.upl.Main;
 import org.upl.graph.ASTGraph;
 import org.upl.lexer.Token;
 import org.upl.lexer.TokenType;
+import org.upl.parser.Parser;
 import org.upl.parser.grammar.*;
 
 import java.io.FileInputStream;
@@ -13,17 +14,11 @@ import java.io.Reader;
 import java.security.InvalidParameterException;
 import java.util.*;
 
-public class TopDownParser {
-    public final Grammar grammar;
+public class TopDown extends Parser {
     public final Map<NonTerminal, Map <TokenType, Production>> parsingTable;
-    public TopDownParser(Reader reader) {
+    public TopDown(Reader reader) {
         grammar = new Grammar(reader);
-        grammar.removeEpsilonRule();
-        grammar.eliminateLeftRecursion();
-        grammar.removeLeftFactoring();
-        grammar.initializeFirstAndFollow();
-        grammar.calculateFirst();
-        grammar.calculateFollow();
+        grammar.init();
 
         parsingTable = new HashMap<>();
         for (NonTerminal nonTerminal : grammar.nonTerminalList) {
@@ -93,7 +88,12 @@ public class TopDownParser {
                     currentToken++;
                     graphNode.get(node).setObject(input);
                 } else {
-                    Main.compileError(input, String.format("Expected: %s", now));
+                    if (currentToken > 0) {
+                        Main.compileError(tokens.get(currentToken - 1), String.format("Expected: %s", now));
+                    } else {
+                        Main.compileError(0, 0, String.format("Expected: %s", now));
+                    }
+
                 }
             } else if (now instanceof NonTerminal) {
                 Production production = move((NonTerminal) now, input.getType());
@@ -107,7 +107,7 @@ public class TopDownParser {
                 } else {
                     if (now.value.startsWith("StatementLists")
                             || now.value.startsWith("Program")) {
-                        Main.compileError(input, ("Unexpected character"));
+                        Main.compileError(input, ("Unexpected token!"));
                         currentToken++;
                         stack.add(node);
                     }
@@ -126,7 +126,7 @@ public class TopDownParser {
         String filePath = args[0];
         Reader reader = new InputStreamReader(new FileInputStream(filePath));
 
-        TopDownParser topDownParser = new TopDownParser(reader);
+        TopDown topDownParser = new TopDown(reader);
 
     }
 }
