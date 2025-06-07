@@ -1,19 +1,54 @@
-###
-TERMINAL:
-ID, PLUS, EOF, EPSILON, LEFT_PAREN, RIGHT_PAREN, MULTIPLY
+Terminals: $ LEFT_PAREN RIGHT_PAREN LEFT_BRACE RIGHT_BRACE SEMICOLON BEGIN THEN END DO WHILE FOR PRINT IF ELSE INT BOOL ID PLUS MULTIPLY EQUAL EQUAL_EQUAL GREATER GREATER_EQUAL NUMBER TRUE FALSE
+Non-terminals: Program- Program BracketStatementLists StatementLists Statement AssignmentStatement IfStatement DoWhileStatement ForStatement ElseStatement PrintStatement DeclarationStatement ConditionalStatement InitDeclarator ComparisonOperator Expression Term Factor Literal Type Expression' Term' IfStatement0 Program1 BracketStatementLists2 StatementLists3
+Productions Rules:
 
-###
-NON-TERMINAL:
-E, E', T, T', F
 
-###
-PRODUCTION_RULE:
-E -> T E';
-E' -> PLUS T E' | EPSILON;
-T -> F T';
-T' -> MULTIPLY F T' | EPSILON;
-F -> LEFT_PAREN E RIGHT_PAREN | ID
+13, AssignmentStatement -> ID EQUAL Expression
+15, DoWhileStatement -> DO BracketStatementLists WHILE LEFT_PAREN ConditionalStatement RIGHT_PAREN
+16, ForStatement -> FOR LEFT_PAREN DeclarationStatement ConditionalStatement SEMICOLON AssignmentStatement RIGHT_PAREN BracketStatementLists
+18, PrintStatement -> PRINT LEFT_PAREN Expression RIGHT_PAREN SEMICOLON
+21, InitDeclarator -> SEMICOLON
+22, InitDeclarator -> EQUAL Expression SEMICOLON
+40, Type -> INT
+41, Type -> BOOL
+19, DeclarationStatement -> Type ID InitDeclarator
+37, Literal -> NUMBER
+38, Literal -> TRUE
+39, Literal -> FALSE
+23, ComparisonOperator -> EQUAL_EQUAL
+24, ComparisonOperator -> GREATER
+25, ComparisonOperator -> GREATER_EQUAL
+20, ConditionalStatement -> Expression ComparisonOperator Expression
+42, IfStatement -> IF LEFT_PAREN ConditionalStatement RIGHT_PAREN BracketStatementLists
+43, IfStatement -> IF LEFT_PAREN ConditionalStatement RIGHT_PAREN BracketStatementLists IfStatement0
+34, Factor -> ID
+35, Factor -> Literal
+36, Factor -> LEFT_PAREN Expression RIGHT_PAREN
 
-###
-START:
-E
+26, Expression' -> PLUS Term
+27, Expression' -> PLUS Term Expression'
+28, Expression -> Term
+29, Expression -> Term Expression'
+30, Term' -> MULTIPLY Factor
+31, Term' -> MULTIPLY Factor Term'
+32, Term -> Factor
+33, Term -> Factor Term'
+
+1, Program- -> Program
+2, Program1 -> END
+3, Program1 -> StatementLists END
+44, Program -> BEGIN Program1
+4, BracketStatementLists2 -> RIGHT_BRACE
+5, BracketStatementLists2 -> StatementLists RIGHT_BRACE
+6, StatementLists3 -> StatementLists
+7, Statement -> AssignmentStatement SEMICOLON
+8, Statement -> IfStatement
+9, Statement -> DoWhileStatement
+10, Statement -> ForStatement
+11, Statement -> PrintStatement
+12, Statement -> DeclarationStatement
+45, BracketStatementLists -> LEFT_BRACE BracketStatementLists2
+46, StatementLists -> Statement
+47, StatementLists -> Statement StatementLists3
+14, IfStatement0 -> ElseStatement
+17, ElseStatement -> ELSE BracketStatementLists

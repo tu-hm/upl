@@ -25,8 +25,6 @@ public class BottomUp extends Parser {
         grammar.init();
         grammar.removeEpsilonRule();
         table = new SLRParsingTable(grammar);
-
-        System.out.println(table);
     }
 
     @Override
@@ -38,16 +36,6 @@ public class BottomUp extends Parser {
         states.add(table.initState);
         int currentToken = 0;
         while (true) {
-            for (int x : states) {
-                System.out.printf("%d ", x);
-            }
-            System.out.println();
-
-            for (int x : symbols) {
-                System.out.printf("%d %s ", x, graphNode.get(x));
-            }
-            System.out.println();
-
             if (states.empty()) {
                 break;
             } else if (currentToken == tokens.size()) {
@@ -68,8 +56,6 @@ public class BottomUp extends Parser {
             }
 
             if (action.actionType() == ActionType.SHIFT) {
-                System.out.printf("shift %s\n", input.getLexeme());
-
                 int j = action.number();
                 states.add(j);
                 symbols.add(graphNode.size());
@@ -86,7 +72,6 @@ public class BottomUp extends Parser {
                 }
                 symbols.add(graphNode.size());
                 graphNode.add(production.left);
-                System.out.printf("reduce by %s\n", production);
                 adj.add(nw);
 
                 int t = states.peek();

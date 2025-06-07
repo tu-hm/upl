@@ -17,7 +17,6 @@ public class ASTGraph {
     public List<Symbol> graphNode;
     public List<List<Integer>> adj;
     public int root;
-    private StatementList statementList;
 
     private int space = 2;
     private int tin = 0;
@@ -66,8 +65,6 @@ public class ASTGraph {
             depth.set(x, depth.get(node) + 1);
             DFS(x);
         }
-
-
     }
 
     public void drawSyntaxTree() {

@@ -17,7 +17,7 @@ public class CanonicalCollection {
         {
             ItemSet i0 = new ItemSet(augmentedGrammar, new TreeSet<>());
             i0.items.add(new
-                    Item(Grammar.allCurrentNonTerminalAiProduction(augmentedGrammar.productionList, augmentedGrammar.start).get(0), 0));
+                    Item(Grammar.allCurrentNonTerminalAiProduction(augmentedGrammar.productionList, augmentedGrammar.start).getFirst(), 0));
             itemSetList.add(i0.closure());
         }
         List<Symbol> symbols = new ArrayList<>();

@@ -1,20 +1,200 @@
-###
-TERMINAL:
-ID, PLUS, EOF, EPSILON, LEFT_PAREN, RIGHT_PAREN, MULTIPLY
-
-###
-NON-TERMINAL:
-E, F, T
-
-###
-PRODUCTION_RULE:
-E -> E PLUS T;
-E -> T;
-T -> T MULTIPLY F;
-T -> F;
-F -> LEFT_PAREN E RIGHT_PAREN
-F -> ID;
-
-###
-START:
-E
+Program
+├ BEGIN Token: begin at line 1, column 5
+└ Program1
+  ├ StatementLists
+  │ ├ Statement
+  │ │ └ DeclarationStatement
+  │ │   ├ Type
+  │ │   │ └ INT Token: int at line 2, column 3
+  │ │   ├ ID Token: x1 at line 2, column 6
+  │ │   └ InitDeclarator
+  │ │     ├ EQUAL Token: = at line 2, column 7
+  │ │     ├ Expression
+  │ │     │ └ Term
+  │ │     │   └ Factor
+  │ │     │     └ Literal
+  │ │     │       └ NUMBER Token: 11 at line 2, column 9
+  │ │     └ SEMICOLON Token: ; at line 2, column 10
+  │ └ StatementLists3
+  │   └ StatementLists
+  │     ├ Statement
+  │     │ └ IfStatement
+  │     │   ├ IF Token: if at line 3, column 2
+  │     │   ├ LEFT_PAREN Token: ( at line 3, column 4
+  │     │   ├ ConditionalStatement
+  │     │   │ ├ Expression
+  │     │   │ │ └ Term
+  │     │   │ │   └ Factor
+  │     │   │ │     └ ID Token: x at line 3, column 5
+  │     │   │ ├ ComparisonOperator
+  │     │   │ │ └ EQUAL_EQUAL Token: == at line 3, column 8
+  │     │   │ └ Expression
+  │     │   │   └ Term
+  │     │   │     └ Factor
+  │     │   │       └ Literal
+  │     │   │         └ NUMBER Token: 3 at line 3, column 10
+  │     │   ├ RIGHT_PAREN Token: ) at line 3, column 11
+  │     │   ├ BracketStatementLists
+  │     │   │ ├ LEFT_BRACE Token: { at line 3, column 13
+  │     │   │ └ BracketStatementLists2
+  │     │   │   ├ StatementLists
+  │     │   │   │ └ Statement
+  │     │   │   │   └ PrintStatement
+  │     │   │   │     ├ PRINT Token: print at line 3, column 19
+  │     │   │   │     ├ LEFT_PAREN Token: ( at line 3, column 20
+  │     │   │   │     ├ Expression
+  │     │   │   │     │ └ Term
+  │     │   │   │     │   └ Factor
+  │     │   │   │     │     └ Literal
+  │     │   │   │     │       └ NUMBER Token: 5 at line 3, column 25
+  │     │   │   │     ├ RIGHT_PAREN Token: ) at line 3, column 26
+  │     │   │   │     └ SEMICOLON Token: ; at line 3, column 27
+  │     │   │   └ RIGHT_BRACE Token: } at line 3, column 28
+  │     │   └ IfStatement0
+  │     │     └ ElseStatement
+  │     │       ├ ELSE Token: else at line 4, column 4
+  │     │       └ BracketStatementLists
+  │     │         ├ LEFT_BRACE Token: { at line 4, column 6
+  │     │         └ BracketStatementLists2
+  │     │           ├ StatementLists
+  │     │           │ └ Statement
+  │     │           │   ├ AssignmentStatement
+  │     │           │   │ ├ ID Token: uwu at line 4, column 10
+  │     │           │   │ ├ EQUAL Token: = at line 4, column 12
+  │     │           │   │ └ Expression
+  │     │           │   │   └ Term
+  │     │           │   │     └ Factor
+  │     │           │   │       └ Literal
+  │     │           │   │         └ NUMBER Token: 0 at line 4, column 14
+  │     │           │   └ SEMICOLON Token: ; at line 4, column 15
+  │     │           └ RIGHT_BRACE Token: } at line 4, column 17
+  │     └ StatementLists3
+  │       └ StatementLists
+  │         ├ Statement
+  │         │ ├ AssignmentStatement
+  │         │ │ ├ ID Token: a at line 5, column 1
+  │         │ │ ├ EQUAL Token: = at line 5, column 2
+  │         │ │ └ Expression
+  │         │ │   ├ Term
+  │         │ │   │ └ Factor
+  │         │ │   │   └ ID Token: x at line 5, column 3
+  │         │ │   └ Expression'
+  │         │ │     ├ PLUS Token: + at line 5, column 4
+  │         │ │     └ Term
+  │         │ │       └ Factor
+  │         │ │         └ ID Token: y at line 5, column 5
+  │         │ └ SEMICOLON Token: ; at line 5, column 6
+  │         └ StatementLists3
+  │           └ StatementLists
+  │             ├ Statement
+  │             │ └ ForStatement
+  │             │   ├ FOR Token: for at line 6, column 3
+  │             │   ├ LEFT_PAREN Token: ( at line 6, column 4
+  │             │   ├ DeclarationStatement
+  │             │   │ ├ Type
+  │             │   │ │ └ INT Token: int at line 6, column 7
+  │             │   │ ├ ID Token: i at line 6, column 9
+  │             │   │ └ InitDeclarator
+  │             │   │   ├ EQUAL Token: = at line 6, column 11
+  │             │   │   ├ Expression
+  │             │   │   │ └ Term
+  │             │   │   │   └ Factor
+  │             │   │   │     └ Literal
+  │             │   │   │       └ NUMBER Token: 3 at line 6, column 13
+  │             │   │   └ SEMICOLON Token: ; at line 6, column 14
+  │             │   ├ ConditionalStatement
+  │             │   │ ├ Expression
+  │             │   │ │ └ Term
+  │             │   │ │   └ Factor
+  │             │   │ │     └ ID Token: i at line 6, column 16
+  │             │   │ ├ ComparisonOperator
+  │             │   │ │ └ GREATER Token: > at line 6, column 18
+  │             │   │ └ Expression
+  │             │   │   └ Term
+  │             │   │     └ Factor
+  │             │   │       └ Literal
+  │             │   │         └ NUMBER Token: 5 at line 6, column 20
+  │             │   ├ SEMICOLON Token: ; at line 6, column 21
+  │             │   ├ AssignmentStatement
+  │             │   │ ├ ID Token: i at line 6, column 23
+  │             │   │ ├ EQUAL Token: = at line 6, column 25
+  │             │   │ └ Expression
+  │             │   │   ├ Term
+  │             │   │   │ └ Factor
+  │             │   │   │   └ ID Token: i at line 6, column 27
+  │             │   │   └ Expression'
+  │             │   │     ├ PLUS Token: + at line 6, column 29
+  │             │   │     └ Term
+  │             │   │       └ Factor
+  │             │   │         └ Literal
+  │             │   │           └ NUMBER Token: 1 at line 6, column 31
+  │             │   ├ RIGHT_PAREN Token: ) at line 6, column 32
+  │             │   └ BracketStatementLists
+  │             │     ├ LEFT_BRACE Token: { at line 6, column 34
+  │             │     └ BracketStatementLists2
+  │             │       ├ StatementLists
+  │             │       │ └ Statement
+  │             │       │   └ DoWhileStatement
+  │             │       │     ├ DO Token: do at line 7, column 6
+  │             │       │     ├ BracketStatementLists
+  │             │       │     │ ├ LEFT_BRACE Token: { at line 7, column 8
+  │             │       │     │ └ BracketStatementLists2
+  │             │       │     │   ├ StatementLists
+  │             │       │     │   │ └ Statement
+  │             │       │     │   │   ├ AssignmentStatement
+  │             │       │     │   │   │ ├ ID Token: c at line 8, column 9
+  │             │       │     │   │   │ ├ EQUAL Token: = at line 8, column 11
+  │             │       │     │   │   │ └ Expression
+  │             │       │     │   │   │   ├ Term
+  │             │       │     │   │   │   │ └ Factor
+  │             │       │     │   │   │   │   └ Literal
+  │             │       │     │   │   │   │     └ NUMBER Token: 3 at line 8, column 13
+  │             │       │     │   │   │   └ Expression'
+  │             │       │     │   │   │     ├ PLUS Token: + at line 8, column 15
+  │             │       │     │   │   │     └ Term
+  │             │       │     │   │   │       ├ Factor
+  │             │       │     │   │   │       │ └ Literal
+  │             │       │     │   │   │       │   └ NUMBER Token: 5 at line 8, column 17
+  │             │       │     │   │   │       └ Term'
+  │             │       │     │   │   │         ├ MULTIPLY Token: * at line 8, column 19
+  │             │       │     │   │   │         └ Factor
+  │             │       │     │   │   │           └ Literal
+  │             │       │     │   │   │             └ NUMBER Token: 7 at line 8, column 21
+  │             │       │     │   │   └ SEMICOLON Token: ; at line 8, column 22
+  │             │       │     │   └ RIGHT_BRACE Token: } at line 9, column 5
+  │             │       │     ├ WHILE Token: while at line 9, column 11
+  │             │       │     ├ LEFT_PAREN Token: ( at line 9, column 13
+  │             │       │     ├ ConditionalStatement
+  │             │       │     │ ├ Expression
+  │             │       │     │ │ ├ Term
+  │             │       │     │ │ │ └ Factor
+  │             │       │     │ │ │   └ Literal
+  │             │       │     │ │ │     └ NUMBER Token: 1 at line 9, column 14
+  │             │       │     │ │ └ Expression'
+  │             │       │     │ │   ├ PLUS Token: + at line 9, column 16
+  │             │       │     │ │   └ Term
+  │             │       │     │ │     └ Factor
+  │             │       │     │ │       └ Literal
+  │             │       │     │ │         └ NUMBER Token: 1 at line 9, column 18
+  │             │       │     │ ├ ComparisonOperator
+  │             │       │     │ │ └ EQUAL_EQUAL Token: == at line 9, column 21
+  │             │       │     │ └ Expression
+  │             │       │     │   └ Term
+  │             │       │     │     └ Factor
+  │             │       │     │       └ Literal
+  │             │       │     │         └ NUMBER Token: 2 at line 9, column 23
+  │             │       │     └ RIGHT_PAREN Token: ) at line 9, column 24
+  │             │       └ RIGHT_BRACE Token: } at line 11, column 1
+  │             └ StatementLists3
+  │               └ StatementLists
+  │                 └ Statement
+  │                   ├ AssignmentStatement
+  │                   │ ├ ID Token: ahihi at line 12, column 5
+  │                   │ ├ EQUAL Token: = at line 12, column 7
+  │                   │ └ Expression
+  │                   │   └ Term
+  │                   │     └ Factor
+  │                   │       └ Literal
+  │                   │         └ NUMBER Token: 0 at line 12, column 9
+  │                   └ SEMICOLON Token: ; at line 12, column 10
+  └ END Token: end at line 14, column 3

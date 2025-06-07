@@ -417,6 +417,7 @@ public class Grammar {
     }
 
     public void processFollow(Production production) {
+        // rule 2
         for (int i = 0; i + 1 < production.right.size(); i++) {
             Symbol B = production.right.get(i);
             Symbol beta = production.right.get(i + 1);
@@ -433,12 +434,14 @@ public class Grammar {
     }
 
     public void calculateFollow() {
+        // rule 1
         follow.get(start).add(eof);
         Graph graph = new Graph(nonTerminalList.size());
 
         for (Production production : productionList) {
             for (Symbol symbol : production.right.reversed()) {
                 if (symbol instanceof NonTerminal) {
+                    // rule 3
                     graph.addDirectionalEdge(
                             nonTerminalList.indexOf(symbol),
                             nonTerminalList.indexOf(production.left)

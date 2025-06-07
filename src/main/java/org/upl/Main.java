@@ -1,6 +1,7 @@
 package org.upl;
 
 import org.upl.graph.ASTGraph;
+import org.upl.icg.CodeGenerator;
 import org.upl.lexer.ILexer;
 import org.upl.lexer.JFlexLexer;
 import org.upl.lexer.Lexer;
@@ -80,15 +81,18 @@ public class Main {
 
         List<Token> tokens = lexer.scanTokens();
         for (Token token : tokens) {
-            System.out.println("Token: " + token.getType() + " at line " + token.getLine() + " column " + token.getColumn());
+//            System.out.println("Token: " + token.getType() + " at line " + token.getLine() + " column " + token.getColumn());
         }
 
-        Parser parser = new TopDown(
+        Parser parser = new BottomUp(
                 new InputStreamReader(new FileInputStream("CFG.txt")));
 
         ASTGraph parsed = parser.parse(tokens);
+        CodeGenerator codeGenerator = new CodeGenerator(parsed);
         if (!hasCompileError) {
-            parsed.drawSyntaxTree();
+//            parsed.drawSyntaxTree();
         }
+
+        System.out.println(codeGenerator);
     }
 }
